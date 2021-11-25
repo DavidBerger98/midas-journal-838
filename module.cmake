@@ -1,6 +1,6 @@
 set(DOCUMENTATION "A Spline Driven Reslice Algorithm as described in the VTK Journal Article at http://www.vtkjournal.org/browse/publication/838 .")
 
-vtk_module( SplineDrivenImageSlicer
+vtk_module(vtkSplineDrivenImageSlicer
   DESCRIPTION
     "${DOCUMENTATION}"
   DEPENDS
