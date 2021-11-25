@@ -46,9 +46,9 @@
 class vtkFrenetSerretFrame;
 class vtkImageReslice;
 
-#include "SplineDrivenImageSlicerModule.h" // For export macro
+#include "vtkSplineDrivenImageSlicerModule.h" // For export macro
 
-class SPLINEDRIVENIMAGESLICER_EXPORT vtkSplineDrivenImageSlicer : public vtkImageAlgorithm
+class VTKSPLINEDRIVENIMAGESLICER_EXPORT vtkSplineDrivenImageSlicer : public vtkImageAlgorithm
 {
 public:
   vtkTypeMacro(vtkSplineDrivenImageSlicer,vtkImageAlgorithm);

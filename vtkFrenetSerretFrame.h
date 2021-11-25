@@ -38,10 +38,10 @@
 #ifndef vtkFrenetSerretFrame_h
 #define vtkFrenetSerretFrame_h
 
-#include "SplineDrivenImageSlicerModule.h" // For export macro
+#include "vtkSplineDrivenImageSlicerModule.h" // For export macro
 #include "vtkPolyDataAlgorithm.h"
 
-class SPLINEDRIVENIMAGESLICER_EXPORT vtkFrenetSerretFrame : public vtkPolyDataAlgorithm
+class VTKSPLINEDRIVENIMAGESLICER_EXPORT vtkFrenetSerretFrame : public vtkPolyDataAlgorithm
 {
 public:
   vtkTypeMacro(vtkFrenetSerretFrame,vtkPolyDataAlgorithm);

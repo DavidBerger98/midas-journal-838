@@ -1,7 +1,7 @@
 NAME
   VTK::SplineDrivenImageSlicer
 LIBRARY_NAME
-  SplineDrivenImageSlicer
+  vtkSplineDrivenImageSlicer
 DEPENDS
   VTK::CommonCore
   VTK::FiltersCore
