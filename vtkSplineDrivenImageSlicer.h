@@ -41,10 +41,13 @@
 #ifndef vtkSplineDrivenImageSlicer_h
 #define vtkSplineDrivenImageSlicer_h
 
-#include"vtkImageAlgorithm.h"
+#include "vtkImageAlgorithm.h"
+
 
 class vtkFrenetSerretFrame;
 class vtkImageReslice;
+class vtkPlaneSource;
+
 
 #include "SplineDrivenImageSlicerModule.h" // For export macro
 
@@ -85,6 +88,8 @@ public:
   vtkSetMacro( Incidence, double );
   vtkGetMacro( Incidence, double );
 
+  vtkGetObjectMacro(PlaneSource, vtkPlaneSource);
+
 
 protected:
   vtkSplineDrivenImageSlicer();
@@ -103,6 +108,7 @@ private:
 
   vtkFrenetSerretFrame* localFrenetFrames; //!< computes local tangent along path input
   vtkImageReslice* reslicer; //!< Reslicers array
+  vtkPlaneSource* PlaneSource;
 
   int     SliceExtent[2]; //!< Number of pixels nx, ny in the slice space around the center points
   double SliceSpacing[2]; //!< Pixel size sx, sy of the output slice
