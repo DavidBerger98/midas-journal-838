@@ -49,6 +49,7 @@ vtkSplineDrivenImageSlicer::vtkSplineDrivenImageSlicer( )
 {
   this->localFrenetFrames = vtkFrenetSerretFrame::New( );
   this->reslicer = vtkImageReslice::New();
+  this->PlaneSource = vtkPlaneSource::New();
   this->SliceExtent[0] = 15;
   this->SliceExtent[1] = 15;
   this->SliceSpacing[0] = 1;
@@ -57,7 +58,7 @@ vtkSplineDrivenImageSlicer::vtkSplineDrivenImageSlicer( )
   this->OffsetPoint = 0;
   this->OffsetLine = 0;
   this->ProbeInput = 0;
-   
+
   this->SetNumberOfInputPorts( 2 );
   this->SetNumberOfOutputPorts( 2 );
    
@@ -235,8 +236,6 @@ int vtkSplineDrivenImageSlicer::RequestData(
   pathBinormals->GetTuple( ptId, binormal );
 
   // Build the plane output that will represent the slice location in 3D view
-  vtkSmartPointer<vtkPlaneSource> plane = vtkSmartPointer<vtkPlaneSource>::New( );
-	 
   double planeOrigin[3];
   double planePoint1[3];
   double planePoint2[3];
@@ -247,24 +246,26 @@ int vtkSplineDrivenImageSlicer::RequestData(
     planePoint1[comp] = planeOrigin[comp] + binormal[comp]*this->SliceExtent[0]*this->SliceSpacing[0];
     planePoint2[comp] = planeOrigin[comp] + normal[comp]*this->SliceExtent[1]*this->SliceSpacing[1];
   }
-  plane->SetOrigin(planeOrigin);
-  plane->SetPoint1(planePoint1);
-  plane->SetPoint2(planePoint2);
-  plane->SetResolution(this->SliceExtent[0],
+
+  this->PlaneSource->SetOrigin(planeOrigin); 
+  this->PlaneSource->SetPoint1(planePoint1);  
+  this->PlaneSource->SetPoint2(planePoint2);  
+  this->PlaneSource->SetResolution(this->SliceExtent[0], 
                        this->SliceExtent[1]);
-  plane->Update();
+  this->PlaneSource->Update(); 
+
 	 
   if( this->ProbeInput == 1 )
   {
     vtkSmartPointer<vtkProbeFilter> probe = vtkSmartPointer<vtkProbeFilter>::New( );
-    probe->SetInputConnection( plane->GetOutputPort( ) );
+    probe->SetInputConnection(this->PlaneSource->GetOutputPort( ) );
     probe->SetSourceData( inputCopy );
     probe->Update( );
     outputPlane->DeepCopy(probe->GetOutputDataObject(0));
   } 
   else
   {
-    outputPlane->DeepCopy(plane->GetOutputDataObject(0));
+    outputPlane->DeepCopy(this->PlaneSource->GetOutputDataObject(0));
   } 
 	 
   // Build the transformation matrix (inspired from vtkImagePlaneWidget)
